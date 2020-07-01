@@ -1,14 +1,9 @@
-#E-POI
-
+# E-POI
 该项目主要以通过注解的方式将一个实体类变成一个2007版excel的**sheet**。在生成工作表前你的首先创建一个工作薄（XSSFWorkbook）
-
 ----------
-
-##注解说明
-
-###类注解
-
-####@ExcelSheet
+## 注解说明
+### 类注解
+#### @ExcelSheet
 
 当类定义了该注解后即可依据该类定义的注解生成Excel的sheet。当然了，这其中还是需要配合字段的注解才能生成一个比较完整的sheet。
 
@@ -28,7 +23,7 @@
 @ExcelSheet(name="测试工作表",leftMargin = 0.1968504, rightMargin = 0.1968504, verticallyCenter = false)
 public class TestEntity{}
 ```
-####@ExcelPrint
+#### @ExcelPrint
 该注解主要是为了便于定义工作表的打印参数，该注解单独使用无效，必须配合**@ExcelSheet**一起使用
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -44,8 +39,8 @@ public class TestEntity{}
 @ExcelPrint(landscape = true, scale = 81)
 public class TestEntity{}
 ```
-###字段注解
-####@ExcelCell
+### 字段注解
+#### @ExcelCell
 如果定义了@ExcelSheet的类中的字段需要在sheet中显示其内容，则需要定义该注解。该注解定义了一个单元格，该单元格可以是合并的，也可以是非合并的，单元格的内容即为字段的内容。**注意：该注解在父类中生效**
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -87,7 +82,7 @@ public class TestEntity{
     private Boolean testBooleanField;
 }
 ```
-####@ExcelCellStyle
+#### @ExcelCellStyle
 该注解用来定义单元格的样式。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -126,7 +121,7 @@ public class TestEntity {
     private String testField;
 }
 ```
-####@ExcelCellFont
+#### @ExcelCellFont
 该注解用来定义单元格的字体。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -167,7 +162,7 @@ public class TestEntity {
     private String testField;
 }
 ```
-####@ExcelCellMerged
+#### @ExcelCellMerged
 该注解用来操作单元格的合并。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -190,7 +185,7 @@ public class TestEntity {
     private String testField;
 }
 ```
-####@ExcelList
+#### @ExcelList
 当@ExcelSheet定义的类中有类型为List的字段且需要将该List字段中的内容显示到表格中则需对该字段定义该注解，并且List的T中的字段需要用@ExcelListColumn进行定义。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -209,7 +204,7 @@ public class TestEntity {
     private List<TestListEntity> testListEntities;
 }
 ```
-####@ExcelListColumn
+#### @ExcelListColumn
 结合@ExcelList注解进行使用。用于定义@ExcelList注解定义的List的T中的字段。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -240,7 +235,7 @@ public class TestListEntity {
     private String testListField;
 }
 ```
-####@ExcelListTitle
+#### @ExcelListTitle
 定义@ExcelList注解定义的List的T中的字段内容对应的标题，该标题只体现一次，不重复体现。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -270,7 +265,7 @@ public class TestListEntity {
 }
 ```
 
-####@ExcelPicture
+#### @ExcelPicture
 必须要有一个能插入图片的注解，请注意该注解只支持定义在byte[]类型的字段上。
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -300,9 +295,9 @@ public class TestEntity {
 
 ----------
 
-##完整的使用例子
+## 完整的使用例子
 
-###一个混合表格
+### 一个混合表格
 
 定义一个混合的sheet类
 ```java
@@ -547,7 +542,7 @@ public class ExcelUtilsTest {
 
 ```
 
-###一个清单表格
+### 一个清单表格
 定义一个清单sheet类
 ```java
 package com.toolsder.epoi;
@@ -702,7 +697,7 @@ public class ExcelUtilsTest {
 
 ----------
 
-##结束语
+## 结束语
 
 真的结束了吗？当然没有了，还有Excel导入的功能还没有实现呢，现在正在构思导入的功能，不久之后将会与大家见面！！！
 
