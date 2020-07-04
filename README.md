@@ -721,6 +721,6 @@ public class ExcelUtilsTest {
 
 当然了，作为一个小小小小小小的开源爱好者，在获得大家的精神支持的时候也还需要一点点点点点点物质支持。
 
-**支付宝**：<img src="https://github.com/smallQ1017/pay-qrcode/blob/master/zhifubao-qrcode.png?raw=true" width="150" height="150"/>**微信**：<img src="https://github.com/smallQ1017/pay-qrcode/blob/master/weixin-qrcode.png?raw=true" width="150" height="150"/>**PayPal**：https://paypal.me/gentlyding?locale.x=zh_XC
+**支付宝**：<img src="https://vipkshttps3.wiz.cn/ks/note/view/bc3b9478-80c6-4c1e-8701-3874dd66e2bf/65883e59-9108-42b2-adbc-99d3d270810e/index_files/zhifubao-qrcode.png" width="150" height="150"/>**微信**：<img src="https://vipkshttps3.wiz.cn/ks/note/view/bc3b9478-80c6-4c1e-8701-3874dd66e2bf/65883e59-9108-42b2-adbc-99d3d270810e/index_files/weixin-qrcode.png" width="150" height="150"/>**PayPal**：https://paypal.me/gentlyding?locale.x=zh_XC
 
 再次感谢大家！！！
