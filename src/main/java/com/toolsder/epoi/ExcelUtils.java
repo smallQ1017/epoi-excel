@@ -4,9 +4,9 @@ package com.toolsder.epoi;
 import com.toolsder.epoi.annotation.field.*;
 import com.toolsder.epoi.annotation.type.ExcelPrint;
 import com.toolsder.epoi.annotation.type.ExcelSheet;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.Units;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.lang.annotation.Annotation;
@@ -97,22 +97,38 @@ public class ExcelUtils {
      * @param excelPictureAnnotation
      */
     public static void setExcelPicture(XSSFWorkbook workbook, XSSFSheet sheet, byte[] bytes, ExcelPicture excelPictureAnnotation) {
-
+//        CreationHelper helper = workbook.getCreationHelper();
+//
+//        int pictureIdx = workbook.addPicture(bytes, excelPictureAnnotation.pictureType());
+//        //create drawing
+//        Drawing<?> drawing = sheet.createDrawingPatriarch();
+//        ClientAnchor anchor = helper.createClientAnchor();
+//        anchor.setCol1(excelPictureAnnotation.colIndex1());
+//        anchor.setRow1(excelPictureAnnotation.rowIndex1());
+//        anchor.setCol2(excelPictureAnnotation.colIndex2());
+//        anchor.setRow2(excelPictureAnnotation.rowIndex2());
+//        anchor.setDx1(excelPictureAnnotation.dx1()* Units.EMU_PER_PIXEL);
+//        anchor.setDy1(excelPictureAnnotation.dy1()* Units.EMU_PER_PIXEL);
+//        anchor.setDx2(excelPictureAnnotation.dx2()* Units.EMU_PER_PIXEL);
+//        anchor.setDy2(excelPictureAnnotation.dy2()* Units.EMU_PER_PIXEL);
+//        anchor.setAnchorType(ClientAnchor.AnchorType.MOVE_AND_RESIZE);
+//
+//        Picture pict = drawing.createPicture(anchor, pictureIdx);
+//
+//        //auto-size picture
+//        pict.resize();
         XSSFDrawing drawing = sheet.createDrawingPatriarch();
-
-        XSSFClientAnchor anchor = new XSSFClientAnchor(
-                excelPictureAnnotation.dx1(),
-                excelPictureAnnotation.dy1(),
-                excelPictureAnnotation.dx2(),
-                excelPictureAnnotation.dy2(),
-                excelPictureAnnotation.col1(),
-                excelPictureAnnotation.row1(),
-                excelPictureAnnotation.col2(),
-                excelPictureAnnotation.row2()
+        XSSFClientAnchor clientAnchor = drawing.createAnchor(
+                excelPictureAnnotation.dx1()* Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dy1()* Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dx2()* Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dy2()* Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.colIndex1(),
+                excelPictureAnnotation.rowIndex1(),
+                excelPictureAnnotation.colIndex2(),
+                excelPictureAnnotation.rowIndex2()
         );
-
-        drawing.createPicture(anchor, workbook.addPicture(bytes, XSSFWorkbook.PICTURE_TYPE_PNG));
-
+        drawing.createPicture(clientAnchor, workbook.addPicture(bytes, excelPictureAnnotation.pictureType()));
     }
 
     /**

@@ -19,7 +19,7 @@ public class ExcelUtilsTest {
     @Test
     public void test() {
         //获取一个图片
-        try (InputStream inputStream = new FileInputStream("D:\\1232.png")) {
+        try (InputStream inputStream = new FileInputStream("D:\\111.png")) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             BufferedImage bufferedImage = ImageIO.read(inputStream);
             ImageIO.write(bufferedImage, "PNG", byteArrayOutputStream);

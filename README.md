@@ -1,3 +1,18 @@
+### 更新日志
+
+----------
+
+#### 2020-07-04
+
+----------
+插入图片的功能更新
+
+* @ExcelPicture注解调整单元格下标命名，使其含义更加明确
+* @ExcelPicture注解新增`pictureType`参数，用来确定图片的格式
+* @ExcelPicture调整x,y坐标值的计算方式，现在只需要将x,y设置成单元格的像素值
+
+----------
+
 # E-POI
 该项目主要以通过注解的方式将一个实体类变成一个2007版excel的**sheet**。在生成工作表前你的首先创建一个工作薄（XSSFWorkbook）
 ----------
@@ -268,16 +283,19 @@ public class TestListEntity {
 #### @ExcelPicture
 必须要有一个能插入图片的注解，请注意该注解只支持定义在byte[]类型的字段上。
 
+**注意：colIndex2与rowIndex2组成结束单元格，dx2与dy2代表了图片右下角在结束单元格中的位置**
+
 | 参数 | 类型 | 默认值 | 说明 |
 | :----: | :----: | :----: | ---- |
-| col1 | int | 0 | 开始单元格列标 |
-| row1 | int | 0 | 开始单元格行标 |
-| col2 | int | 0 | 结束单元格列标 |
-| row2 | int | 0 | 结束单元格行标 |
-| dx1 | int | 0 | 开始单元格x坐标 |
-| dy1 | int | 0 | 开始单元格y坐标 |
-| dx2 | int | 0 | 结束单元格x坐标 |
-| dy2 | int | 0 | 结束单元格y坐标 |
+| colIndex1 | int | 0 | 开始单元格列标 |
+| rowIndex1 | int | 0 | 开始单元格行标 |
+| colIndex2 | int | 0 | 结束单元格列标 |
+| rowIndex2 | int | 0 | 结束单元格行标 |
+| dx1 | int | 0 | 开始单元格x坐标，单元格像素值 |
+| dy1 | int | 0 | 开始单元格y坐标，单元格像素值 |
+| dx2 | int | 0 | 结束单元格x坐标，单元格像素值 |
+| dy2 | int | 0 | 结束单元格y坐标，单元格像素值 |
+| pictureType | int | Workbook.PICTURE_TYPE_PNG | 图片格式 |
 
 使用方法：
 ```java
