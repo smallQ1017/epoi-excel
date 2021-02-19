@@ -119,10 +119,10 @@ public class ExcelUtils {
 //        pict.resize();
         XSSFDrawing drawing = sheet.createDrawingPatriarch();
         XSSFClientAnchor clientAnchor = drawing.createAnchor(
-                excelPictureAnnotation.dx1()* Units.EMU_PER_PIXEL,
-                excelPictureAnnotation.dy1()* Units.EMU_PER_PIXEL,
-                excelPictureAnnotation.dx2()* Units.EMU_PER_PIXEL,
-                excelPictureAnnotation.dy2()* Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dx1() * Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dy1() * Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dx2() * Units.EMU_PER_PIXEL,
+                excelPictureAnnotation.dy2() * Units.EMU_PER_PIXEL,
                 excelPictureAnnotation.colIndex1(),
                 excelPictureAnnotation.rowIndex1(),
                 excelPictureAnnotation.colIndex2(),

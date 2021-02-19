@@ -4,6 +4,7 @@ import com.toolsder.epoi.annotation.field.*;
 import com.toolsder.epoi.annotation.type.ExcelSheet;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.poi.ss.usermodel.BorderStyle;
 
 /**
@@ -16,6 +17,7 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 @Getter
 @Setter
 @ExcelSheet(name = "清单sheet",inventorySheet = true)
+@ToString
 public class MixingSheetList {
 
     @ExcelListColumn(

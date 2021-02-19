@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by QK on 2020/5/14
+ * 将对象制作成Excel表格
  *
  * @author 猴子请来的逗逼
  */
@@ -33,45 +34,23 @@ public class ExcelSheetFile {
     private ExcelPrint excelPrintAnnotation;
 
     /**
-     * 工作表对象
+     * 实体对象
      */
     private Object object;
 
     /**
-     * 对象的class
+     * 实体对象的class
      */
     private Class<?> clz;
 
     /**
-     * 工作薄
+     * 保存实体对象数据的工作薄
      */
     private XSSFWorkbook workbook;
-
 
     public ExcelSheetFile(Object object, XSSFWorkbook workbook) {
         //设置对象
         this.setObject(object, workbook);
-    }
-
-
-    /**
-     * 设置需要转成工作表的对象
-     *
-     * @param object 要转成工作表的对象
-     */
-    private void setObject(Object object, XSSFWorkbook workbook) {
-        if (object instanceof List) {
-            List<Object> objects = (List<Object>) object;
-            if (objects.size() <= 0) throw new RuntimeException("请勿传入空list");
-            //获取对象的Class
-            this.clz = objects.get(0).getClass();
-        } else {
-            //获取对象的Class
-            this.clz = object.getClass();
-        }
-        this.object = object;
-        this.extractClass();
-        this.workbook = workbook;
     }
 
     /**
@@ -100,6 +79,26 @@ public class ExcelSheetFile {
             }
             this.disposeInventoryField(sheet, objects, fields);
         }
+    }
+
+    /**
+     * 设置需要转成工作表的对象
+     *
+     * @param object 要转成工作表的对象
+     */
+    private void setObject(Object object, XSSFWorkbook workbook) {
+        if (object instanceof List) {
+            List<Object> objects = (List<Object>) object;
+            if (objects.size() <= 0) throw new RuntimeException("请勿传入空list");
+            //获取对象的Class
+            this.clz = objects.get(0).getClass();
+        } else {
+            //获取对象的Class
+            this.clz = object.getClass();
+        }
+        this.object = object;
+        this.extractClass();
+        this.workbook = workbook;
     }
 
     /**

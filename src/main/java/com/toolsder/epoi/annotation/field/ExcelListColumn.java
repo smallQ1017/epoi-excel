@@ -59,7 +59,7 @@ public @interface ExcelListColumn {
      *
      * @return
      */
-    ExcelListTitle excelListTitle();
+    ExcelListTitle excelListTitle() default @ExcelListTitle;
 
 
     /**

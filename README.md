@@ -2,6 +2,343 @@
 
 ----------
 
+#### 2020-12-15
+
+----------
+新增Excel文件导入功能
+
+* @ExcelList注解新增rowCount列表数量的参数，用来确定从Excel文件中获取的数据量，如果为0，则以工作表的lastRowNum为需要获取的数据量。
+
+
+
+#### 完整的使用例子
+
+#### 导入混合表格数据
+
+定义一个混合的sheet类
+```java
+package com.toolsder.epoi;
+
+import com.toolsder.epoi.annotation.field.*;
+import com.toolsder.epoi.annotation.type.ExcelSheet;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Font;
+
+import java.util.List;
+
+/**
+ * created by 猴子请来的逗比 On 2020/7/1
+ * <p>
+ * 一个混合的sheet定义类
+ *
+ * @author by 猴子请来的逗比
+ */
+@ExcelSheet(name = "混合sheet")
+@Getter
+@Setter
+public class MixingSheet {
+    /**
+     * 一个长合并标题
+     */
+    @ExcelCell(
+            rowIndex = 0,
+            columnIndex = 0,
+            rowHeight = 20.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderLeft = BorderStyle.THIN,
+                    borderTop = BorderStyle.DASH_DOT_DOT,
+                    borderRight = BorderStyle.HAIR,
+                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(
+                            name = "微软雅黑",
+                            heightInPoints = 20,
+                            bold = true,
+                            italic = true,
+                            underline = Font.U_DOUBLE_ACCOUNTING
+                    )
+            ),
+            excelCellMerged = @ExcelCellMerged(
+                    rowCount = 2,
+                    columnCount = 2
+            )
+    )
+    private String title;
+
+    /**
+     * 一个非合并小标题
+     */
+    @ExcelCell(
+            rowIndex = 2,
+            columnIndex = 0,
+            rowHeight = 21.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderLeft = BorderStyle.THIN,
+                    borderTop = BorderStyle.DASH_DOT_DOT,
+                    borderRight = BorderStyle.HAIR,
+                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(
+                            heightInPoints = 16,
+                            bold = true,
+                            italic = true,
+                            underline = Font.U_DOUBLE_ACCOUNTING
+                    )
+            )
+    )
+    private String subTitle;
+
+    /**
+     * 定义列表内容，它从第三行的第二列开始
+     */
+    @ExcelList(
+            startRowIndex = 3,
+            startColumnIndex = 1
+    )
+    private List<MixingSheetList> mixingSheetLists;
+
+
+}
+
+```
+定义混合sheet类中的字段为list的T
+```java
+package com.toolsder.epoi;
+
+import com.toolsder.epoi.annotation.field.*;
+import com.toolsder.epoi.annotation.type.ExcelSheet;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Font;
+
+/**
+ * created by 猴子请来的逗比 On 2020/7/1
+ * <p>
+ * 混合的sheet中的list
+ *
+ * @author by 猴子请来的逗比
+ */
+@Getter
+@Setter
+public class MixingSheetList {
+
+    @ExcelListColumn(
+            rowHeight = 14.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderTop = BorderStyle.THIN,
+                    borderBottom = BorderStyle.THIN,
+                    borderLeft = BorderStyle.THIN,
+                    borderRight = BorderStyle.THIN,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(heightInPoints = 11)
+            ),
+            excelListTitle = @ExcelListTitle(
+                    excelCellStyle = @ExcelCellStyle(borderTop = BorderStyle.THIN,
+                            borderBottom = BorderStyle.THIN,
+                            borderLeft = BorderStyle.THIN,
+                            borderRight = BorderStyle.THIN,
+                            wrapText = true,
+                            excelCellFont = @ExcelCellFont(bold = true, heightInPoints = 14)),
+                    name = "ID号",
+                    rowHeight = 57,
+                    columnWidth = 8.38f)
+    )
+    private String id;
+
+    @ExcelListColumn(
+            columnOffset = 1,
+            rowHeight = 14.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderTop = BorderStyle.THIN,
+                    borderBottom = BorderStyle.THIN,
+                    borderLeft = BorderStyle.THIN,
+                    borderRight = BorderStyle.THIN,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(heightInPoints = 11)
+            ),
+            excelListTitle = @ExcelListTitle(
+                    columnOffset = 1,
+                    excelCellStyle = @ExcelCellStyle(borderTop = BorderStyle.THIN,
+                            borderBottom = BorderStyle.THIN,
+                            borderLeft = BorderStyle.THIN,
+                            borderRight = BorderStyle.THIN,
+                            wrapText = true,
+                            excelCellFont = @ExcelCellFont(bold = true, heightInPoints = 14)),
+                    name = "内容",
+                    rowHeight = 57,
+                    columnWidth = 8.38f)
+    )
+    private String content;
+
+}
+
+```
+导入数据
+```java
+package com.toolsder.epoi;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
+
+import java.io.*;
+
+/**
+ * created by 猴子请来的逗比 On 2020/6/28
+ *
+ * @author by 猴子请来的逗比
+ */
+public class ExcelUtilsTest {
+
+
+
+    @Test
+    public void test2() throws IOException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+        FileInputStream excelFileInputStream = new FileInputStream("C:\\Users\\Administrator\\Desktop\\新建 Microsoft Office Excel 97-2003 工作表.xlsx");
+
+
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFileInputStream);
+
+        ExcelFileToObject excelFileToObject = new ExcelFileToObject(MixingSheet.class, xssfWorkbook);
+
+        MixingSheet mixingSheet= (MixingSheet) excelFileToObject.generateObject();
+
+        System.out.println(mixingSheet);
+
+    }
+}
+
+
+```
+
+#### 导入清单表格数据
+定义一个清单sheet类
+```java
+package com.toolsder.epoi;
+
+import com.toolsder.epoi.annotation.field.*;
+import com.toolsder.epoi.annotation.type.ExcelSheet;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.poi.ss.usermodel.BorderStyle;
+
+/**
+ * created by 猴子请来的逗比 On 2020/7/1
+ * <p>
+ * 混合的sheet中的list,也可以通过@ExcelSheet注解实现清单的功能
+ *
+ * @author by 猴子请来的逗比
+ */
+@Getter
+@Setter
+@ExcelSheet(name = "清单sheet",inventorySheet = true)
+public class MixingSheetList {
+
+    @ExcelListColumn(
+            rowHeight = 14.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderTop = BorderStyle.THIN,
+                    borderBottom = BorderStyle.THIN,
+                    borderLeft = BorderStyle.THIN,
+                    borderRight = BorderStyle.THIN,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(heightInPoints = 11)
+            ),
+            excelListTitle = @ExcelListTitle(
+                    excelCellStyle = @ExcelCellStyle(borderTop = BorderStyle.THIN,
+                            borderBottom = BorderStyle.THIN,
+                            borderLeft = BorderStyle.THIN,
+                            borderRight = BorderStyle.THIN,
+                            wrapText = true,
+                            excelCellFont = @ExcelCellFont(bold = true, heightInPoints = 14)),
+                    name = "ID号",
+                    rowHeight = 57,
+                    columnWidth = 8.38f)
+    )
+    private String id;
+
+    @ExcelListColumn(
+            columnOffset = 1,
+            rowHeight = 14.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderTop = BorderStyle.THIN,
+                    borderBottom = BorderStyle.THIN,
+                    borderLeft = BorderStyle.THIN,
+                    borderRight = BorderStyle.THIN,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(heightInPoints = 11)
+            ),
+            excelListTitle = @ExcelListTitle(
+                    columnOffset = 1,
+                    excelCellStyle = @ExcelCellStyle(borderTop = BorderStyle.THIN,
+                            borderBottom = BorderStyle.THIN,
+                            borderLeft = BorderStyle.THIN,
+                            borderRight = BorderStyle.THIN,
+                            wrapText = true,
+                            excelCellFont = @ExcelCellFont(bold = true, heightInPoints = 14)),
+                    name = "内容",
+                    rowHeight = 57,
+                    columnWidth = 8.38f)
+    )
+    private String content;
+
+}
+
+```
+导入清单表
+```java
+package com.toolsder.epoi;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
+
+import java.io.*;
+import java.util.List;
+
+/**
+ * created by 猴子请来的逗比 On 2020/6/28
+ *
+ * @author by 猴子请来的逗比
+ */
+public class ExcelUtilsTest {
+
+
+
+    @Test
+    public void test1() throws IOException, IllegalAccessException, InstantiationException {
+        FileInputStream excelFileInputStream = new FileInputStream("C:\\Users\\Administrator\\Desktop\\新建 Microsoft Office Excel 97-2003 工作表.xlsx");
+
+
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFileInputStream);
+
+        ExcelFileToObject excelFileToObject = new ExcelFileToObject(MixingSheetList.class, xssfWorkbook);
+
+        List<MixingSheetList> temp = excelFileToObject.generateList();
+        temp.forEach(System.out::println);
+    }
+
+
+}
+
+
+```
+
+----------
+
+
+
+----------
+
+----------
+
 #### 2020-07-04
 
 ----------

@@ -22,6 +22,13 @@ public @interface ExcelList {
      */
     int startRowIndex() default 0;
 
+    /**
+     * 列表数据
+     *
+     * @return
+     */
+    int rowCount() default 0;
+
 
     /**
      * list数据起始column的index

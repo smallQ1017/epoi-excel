@@ -1,6 +1,5 @@
 package com.toolsder.epoi;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
@@ -16,6 +15,7 @@ import java.util.List;
  * @author by 猴子请来的逗比
  */
 public class ExcelUtilsTest {
+
     @Test
     public void test() {
         //获取一个图片
@@ -68,5 +68,19 @@ public class ExcelUtilsTest {
 
 
     }
+
+    @Test
+    public void test1() throws IOException, IllegalAccessException, InstantiationException {
+        FileInputStream excelFileInputStream = new FileInputStream("C:\\Users\\Administrator\\Desktop\\新建 Microsoft Office Excel 97-2003 工作表.xlsx");
+
+
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(excelFileInputStream);
+
+        ExcelFileToObject excelFileToObject = new ExcelFileToObject(MixingSheetList.class, xssfWorkbook);
+
+        List<MixingSheetList> temp = excelFileToObject.generateList();
+        temp.forEach(System.out::println);
+    }
+
 
 }

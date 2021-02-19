@@ -4,9 +4,9 @@ import com.toolsder.epoi.annotation.field.*;
 import com.toolsder.epoi.annotation.type.ExcelSheet;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
 
@@ -20,67 +20,69 @@ import java.util.List;
 @ExcelSheet(name = "混合sheet")
 @Getter
 @Setter
+@ToString
 public class MixingSheet {
     /**
      * 一个长合并标题
      */
-//    @ExcelCell(
-//            rowIndex = 0,
-//            columnIndex = 0,
-//            rowHeight = 20.0f,
-//            nullValue = "/",
-//            excelCellStyle = @ExcelCellStyle(
-//                    borderLeft = BorderStyle.THIN,
-//                    borderTop = BorderStyle.DASH_DOT_DOT,
-//                    borderRight = BorderStyle.HAIR,
-//                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
-//                    wrapText = true,
-//                    excelCellFont = @ExcelCellFont(
-//                            name = "微软雅黑",
-//                            heightInPoints = 20,
-//                            bold = true,
-//                            italic = true,
-//                            underline = Font.U_DOUBLE_ACCOUNTING
-//                    )
-//            ),
-//            excelCellMerged = @ExcelCellMerged(
-//                    rowCount = 2,
-//                    columnCount = 2
-//            )
-//    )
+    @ExcelCell(
+            rowIndex = 0,
+            columnIndex = 0,
+            rowHeight = 20.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderLeft = BorderStyle.THIN,
+                    borderTop = BorderStyle.DASH_DOT_DOT,
+                    borderRight = BorderStyle.HAIR,
+                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(
+                            name = "微软雅黑",
+                            heightInPoints = 20,
+                            bold = true,
+                            italic = true,
+                            underline = Font.U_DOUBLE_ACCOUNTING
+                    )
+            ),
+            excelCellMerged = @ExcelCellMerged(
+                    rowCount = 2,
+                    columnCount = 2
+            )
+    )
     private String title;
 
     /**
      * 一个非合并小标题
      */
-//    @ExcelCell(
-//            rowIndex = 2,
-//            columnIndex = 0,
-//            rowHeight = 21.0f,
-//            nullValue = "/",
-//            excelCellStyle = @ExcelCellStyle(
-//                    borderLeft = BorderStyle.THIN,
-//                    borderTop = BorderStyle.DASH_DOT_DOT,
-//                    borderRight = BorderStyle.HAIR,
-//                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
-//                    wrapText = true,
-//                    excelCellFont = @ExcelCellFont(
-//                            heightInPoints = 16,
-//                            bold = true,
-//                            italic = true,
-//                            underline = Font.U_DOUBLE_ACCOUNTING
-//                    )
-//            )
-//    )
+    @ExcelCell(
+            rowIndex = 2,
+            columnIndex = 0,
+            rowHeight = 21.0f,
+            nullValue = "/",
+            excelCellStyle = @ExcelCellStyle(
+                    borderLeft = BorderStyle.THIN,
+                    borderTop = BorderStyle.DASH_DOT_DOT,
+                    borderRight = BorderStyle.HAIR,
+                    borderBottom = BorderStyle.MEDIUM_DASH_DOT,
+                    wrapText = true,
+                    excelCellFont = @ExcelCellFont(
+                            heightInPoints = 16,
+                            bold = true,
+                            italic = true,
+                            underline = Font.U_DOUBLE_ACCOUNTING
+                    )
+            )
+    )
     private String subTitle;
 
     /**
      * 定义列表内容，它从第三行的第二列开始
      */
-//    @ExcelList(
-//            startRowIndex = 3,
-//            startColumnIndex = 1
-//    )
+    @ExcelList(
+            startRowIndex = 3,
+            startColumnIndex = 1,
+            rowCount = 6
+    )
     private List<MixingSheetList> mixingSheetLists;
 
 
